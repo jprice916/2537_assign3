@@ -1,0 +1,127 @@
+body {
+  margin: 0px;
+}
+
+#game_grid {
+  border: 2px tomato solid;
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.card {
+  width: 33.3%;
+  position: relative;
+  transition: transform 1s;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+
+img {
+  width: 100%
+}
+
+
+.front_face,
+.back_face {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+
+.front_face {
+  transform: rotateY(180deg);
+}
+
+
+#side {
+  width: 220px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-right: 2px solid #ccc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  color: #333;
+}
+
+
+#side p,
+#side div,
+#side a,
+#side button {
+  margin: 10px 0;
+}
+
+
+#Diff {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  background-color: #3498db; 
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+
+#timer {
+  font-size: 1.2em;
+  color: #555;
+  margin-top: 10px;
+}
+
+
+#click_counter {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+
+#side button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+
+#side button:hover {
+  background-color: #2980b9;
+}
+
+
+#side a {
+  display: inline-block;
+  margin-right: 8px;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#side a:hover {
+  text-decoration: underline;
+}
+
+
+#side div {
+  margin-bottom: 15px;
+}
+
