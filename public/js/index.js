@@ -4,15 +4,15 @@ let time = 0;
 let timerInterval = null;
 let gameOver = true;
 let diffculty = document.getElementById('Diff').innerHTML;
-  if (diffculty == "Difficulty: Easy"){
-    time = 30
-  }
-  if (diffculty == "Difficulty: Medium"){
-    time = 60
-  }
-  if (diffculty == "Difficulty: Hard"){
-    time = 90
-  }
+if (diffculty == "Difficulty: Easy") {
+  time = 30
+}
+if (diffculty == "Difficulty: Medium") {
+  time = 60
+}
+if (diffculty == "Difficulty: Hard") {
+  time = 90
+}
 
 function startTimer() {
   timerInterval = setInterval(() => {
@@ -21,7 +21,7 @@ function startTimer() {
       time--;
       document.getElementById('timer').textContent = `Time: ${time}s`;
     } else {
-      clearInterval(timerInterval); 
+      clearInterval(timerInterval);
       alert("Time's up!");
       gameOver = true;
     }
@@ -36,22 +36,22 @@ function stopTimer() {
 function setup() {
   let firstCard = undefined;
   let secondCard = undefined;
-  let cards = document.querySelectorAll('.card'); 
+  let cards = document.querySelectorAll('.card');
   let Pairs = cards.length / 2;
   let matchedPairs = 0;
-  
+
   let totalPairs = document.getElementById('totalPair')
   totalPairs.innerHTML = Pairs;
   let completedPairs = document.getElementById('matchPair')
   let start = document.getElementById('startBtn').addEventListener('click', startTimer)
- 
+
 
   $(".card").on("click", function () {
-    if (gameOver){
+    if (gameOver) {
       return
     }
-  
-    if ($(this).hasClass("flip")) return; 
+
+    if ($(this).hasClass("flip")) return;
 
     $(this).toggleClass("flip");
 
@@ -94,7 +94,7 @@ function setup() {
 }
 
 function count() {
-  counter ++;
+  counter++;
   const display = document.getElementById("click_counter")
   display.innerHTML = counter;
   console.log("count")
@@ -103,9 +103,9 @@ async function pokeList() {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=1500`)
   const pokemon = await response.json();
   const list = []
-  for (const num of pokemon.results){
+  for (const num of pokemon.results) {
     const pokemonResponse = await fetch(num.url);
-   const pokemonData = await pokemonResponse.json();
+    const pokemonData = await pokemonResponse.json();
 
 
     const imageUrl = pokemonData.sprites.front_default;
@@ -115,15 +115,15 @@ async function pokeList() {
 }
 
 function getRandomImages(urls, count) {
-  const shuffled = urls.slice().sort(() => Math.random() - 0.5); 
-  const selected = shuffled.slice(0, count); 
-  const pairs = [...selected, ...selected]; 
+  const shuffled = urls.slice().sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice(0, count);
+  const pairs = [...selected, ...selected];
   return pairs.sort(() => Math.random() - 0.5);
 }
 async function assignImagesToCards() {
-  const pokemonImageUrls = await pokeList(); 
+  const pokemonImageUrls = await pokeList();
 
-  const cards = document.querySelectorAll('.card'); 
+  const cards = document.querySelectorAll('.card');
 
   const numberOfPairs = cards.length / 2;
   let selectedImages = pokemonImageUrls.sort(() => Math.random() - 0.5).slice(0, numberOfPairs);
@@ -131,9 +131,9 @@ async function assignImagesToCards() {
   selectedImages = [...selectedImages, ...selectedImages];
   selectedImages = selectedImages.sort(() => Math.random() - 0.5);
 
- 
+
   cards.forEach((card, index) => {
-    
+
     const frontFace = card.querySelector('.front_face');
     frontFace.src = selectedImages[index];
     card.addEventListener('click', count)
@@ -154,12 +154,23 @@ document.getElementById('revealBtn').addEventListener('click', () => {
   const cards = document.querySelectorAll('.card');
   const button = document.getElementById('revealBtn');
 
+  const newFlip = [];
   button.disabled = true;
-  cards.forEach(card => card.classList.add('flip'));
+  cards.forEach(function(card) {
+    if (!card.classList.contains('flip')) {
+      card.classList.add('flip');
+      newFlip.push(card); 
+    }
+  });
+
   setTimeout(() => {
-    cards.forEach(card => card.classList.remove('flip'));
-  }, 1000);
+    newFlip.forEach(function(card) { 
+      card.classList.remove('flip');
+    });
+    
+  }, 1000); 
 });
+
 
 
 
