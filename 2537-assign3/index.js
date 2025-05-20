@@ -2,7 +2,7 @@
 let counter = 0;
 let time = 0;
 let timerInterval = null;
-let gameOver = false;
+let gameOver = true;
 let diffculty = document.getElementById('Diff').innerHTML;
   if (diffculty == "Difficulty: Easy"){
     time = 30
@@ -16,6 +16,7 @@ let diffculty = document.getElementById('Diff').innerHTML;
 
 function startTimer() {
   timerInterval = setInterval(() => {
+    gameOver = false;
     if (time > 0) {
       time--;
       document.getElementById('timer').textContent = `Time: ${time}s`;
@@ -39,14 +40,17 @@ function setup() {
   let Pairs = cards.length / 2;
   let matchedPairs = 0;
   
- 
+  let totalPairs = document.getElementById('totalPair')
+  totalPairs.innerHTML = Pairs;
+  let completedPairs = document.getElementById('matchPair')
   let start = document.getElementById('startBtn').addEventListener('click', startTimer)
-  
+ 
 
   $(".card").on("click", function () {
     if (gameOver){
       return
     }
+  
     if ($(this).hasClass("flip")) return; 
 
     $(this).toggleClass("flip");
@@ -63,6 +67,7 @@ function setup() {
         $(`#${secondCard.id}`).parent().off("click");
 
         matchedPairs++;
+        completedPairs.innerHTML = matchedPairs;
         firstCard = undefined;
         secondCard = undefined;
 
