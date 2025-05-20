@@ -39,7 +39,7 @@ function setup() {
   let cards = document.querySelectorAll('.card');
   let Pairs = cards.length / 2;
   let matchedPairs = 0;
-
+  let isflipping = 0;
   let totalPairs = document.getElementById('totalPair')
   totalPairs.innerHTML = Pairs;
   let completedPairs = document.getElementById('matchPair')
@@ -52,6 +52,12 @@ function setup() {
     }
 
     if ($(this).hasClass("flip")) return;
+
+    
+    if (isflipping >= 2){
+      return;
+    }
+    isflipping ++;
 
     $(this).toggleClass("flip");
 
@@ -70,7 +76,7 @@ function setup() {
         completedPairs.innerHTML = matchedPairs;
         firstCard = undefined;
         secondCard = undefined;
-
+        isflipping = 0;
 
         if (matchedPairs === Pairs) {
           setTimeout(() => {
@@ -87,8 +93,10 @@ function setup() {
           $(`#${secondCard.id}`).parent().toggleClass("flip");
           firstCard = undefined;
           secondCard = undefined;
+          isflipping = 0;
         }, 1000);
       }
+      
     }
   });
 }
